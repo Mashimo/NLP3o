@@ -1,0 +1,77 @@
+body            { font-family: sans-serif; background: #eee; }
+h1              { color: #fb3; border-bottom: 2px solid #eee}
+
+textarea {
+  width: 500px;
+  height: 250px;
+}
+
+
+
+.btn-get{
+    background-color: #FB3; /* Green */
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    display: inline-block;
+    padding: 15px 32px;
+    border: none;
+}
+
+.big-btn {
+  background-color: #4CAF50;
+  color: white;
+  font: bold;
+  font-size: 16px;
+  padding: 60px 40px 60px 40px;
+  border: none;
+}
+
+.big-btn-dis {
+  background-color: #666; /* grey */
+  color: white;
+  font: bold 36px;
+  background-color: #666; /* grey */
+  color: #FFF; /*white */
+  padding: 60px 40px 60px 40px;
+  border: none;
+}
+
+.stats {
+  font: bold;
+  font-size: 120%;
+  color: #fb3; /* orange */
+}
+
+
+.chart rect {
+  fill: steelblue;
+  fill-opacity: 0.9;
+}
+
+.chart text {
+  fill: blue;
+  font: 12px sans-serif;
+  text-anchor: end;
+}
+
+text.value {
+    font-size: 120%;
+    fill: white;
+}
+
+.toolTip {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    position: absolute;
+    display: none;
+    width: auto;
+    height: auto;
+    background: none repeat scroll 0 0 white;
+    border: 0 none;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: -3px 3px 15px #888888;
+    color: black;
+    font: 12px sans-serif;
+    padding: 5px;
+    text-align: center;
+}
