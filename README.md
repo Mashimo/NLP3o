@@ -58,11 +58,11 @@ Home page
 
 Settings
 
-![Settings](/READMEimages/Settings.png)
+![Settings](/READMEimages/settings.png)
 
 Results page
 
-![Results](/READMEimages/Results.png)
+![Results](/READMEimages/results.png)
 ## Use Heroku app
 
 The app can be tested on a Heroku dyno too. (soon)
