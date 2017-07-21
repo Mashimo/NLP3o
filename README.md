@@ -51,9 +51,21 @@ Now open up your web browser and enter one of the following URLs in the address 
 
     http://localhost:5000/index
 
+### Screenshots
+Home page
+
+![User-entered text](/READMEimages/text.png)
+
+Settings
+
+![Settings](/READMEimages/Settings.png)
+
+Results page
+
+![Results](/READMEimages/Results.png)
 ## Use Heroku app
 
-The app can be tested on a Heroku dyno too.
+The app can be tested on a Heroku dyno too. (soon)
 
 
 ## Credits - built with:
