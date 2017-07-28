@@ -3,5 +3,4 @@ __pycache__/
 app/__pycache__/
 
 # Distribution / packaging
-app/static/d3/
 flask/
