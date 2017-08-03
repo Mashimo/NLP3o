@@ -18,23 +18,23 @@ from .inputhandler import getSampleText
 @app.route('/', methods=['POST'])
 @app.route('/index', methods=['POST'])
 def manageRequest():
-    
+
       # some useful initialisation
     theInputForm = InputTextForm()
     userText = "and not leave this empty!"
     typeText = "You should write something ..."
     language = "EN"
-    
+
       # POST - retrieve all user submitted data
-        
+
     inputFromBook = request.form['book'] # which text?
-        
+
     # DEBUG flash('the book selected is: %s' % inputFromBook)
 
     if inputFromBook == "mobydick":
-        userText, typeText = getSampleText(1) 
+        userText, typeText = getSampleText(1)
         language = "EN"
-            
+
     elif inputFromBook == "marinetti":
         userText, typeText = getSampleText(2)
         language = "IT"
@@ -48,63 +48,71 @@ def manageRequest():
             userText = theInputForm.inputText.data
             typeText = "Your own text"
             language = request.form['lang'] # which language?
-                
-    # DEBUG flash('read:  %s' % typeText)
-     
-          # Which kind of user action ?
-    if 'TA'  in request.form.values(): 
-            # GO Text Analysis 
 
-               # start analysing the text   
+    # DEBUG flash('read:  %s' % typeText)
+
+    if request.form.get("engine"):
+        use_nltk = True
+    else:
+        use_nltk = False
+    # flash('read:  %s' % use_nltk)
+
+
+          # Which kind of user action ?
+    if 'TA'  in request.form.values():
+            # GO Text Analysis
+
+               # start analysing the text
         myText = TextAnalyser(userText, language) # new object
 
         myText.preprocessText(lowercase = theInputForm.ignoreCase.data,
                               removeStopWords = theInputForm.ignoreStopWords.data)
-            
+
                # display all user text if short otherwise the first fragment of it
         if len(userText) > 99:
             fragment = userText[:99] + " ..."
         else:
             fragment = userText
-            
+
               # check that there is at least one unique token to avoid division by 0
         if myText.uniqueTokens() == 0:
             uniqueTokensText = 1
         else:
             uniqueTokensText = myText.uniqueTokens()
-            
+
               # render the html page
         return render_template('results.html',
-                           title='Text Analysis',
+                           #title='Text Analysis',
+                           title = request.form.get("engine"),
                            inputTypeText = typeText,
                            originalText = fragment,
                            numChars = myText.length(),
                            numTokens = myText.getTokens(),
                            uniqueTokens = uniqueTokensText,
                            commonWords = myText.getMostCommonWords(10))
-        
-    else:                
+
+    else:
         return render_template('future.html',
                            title='Not yet implemented')
 
 
-       
+
   # render web form page
 @app.route('/', methods=['GET'])
 @app.route('/index', methods=['GET'])
 def initial():
-      # render the initial main page            
-    return render_template('index.html', 
+      # render the initial main page
+    return render_template('index.html',
                            title = 'NLP3o - Your input',
                            form = InputTextForm())
-  
+
 @app.route('/results')
 def results():
     return render_template('index.html',
                            title='NLP3o - Text Analysis')
-    
+
   # render about page
 @app.route('/about')
 def about():
     return render_template('about.html',
-                           title='About NLP3o') 
+                           title='About NLP3o')
