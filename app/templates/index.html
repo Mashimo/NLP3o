@@ -56,23 +56,27 @@
               <p>By checking this box, it will ignore all stopwords in the text.</p>
               <p>Stop words are those common words that do not contribute much to the content or meaning
                 of a document (e.g., for English language these could be “the”, “a”, “is”, “to”, etc.).</p>
+              <p>See <a href=https://mashimo.wordpress.com/2014/05/11/the-hello-world-of-text-processing/">
+              this post </a> for details.</p>
             </div>
           </div> </p>
 
-        Bare Metal&nbsp;
+        Stemming or&nbsp;
         <label class="switch">
           <input type="checkbox" name="engine"  checked>
           <span class="slider"></span>
         </label>
-        &nbsp;NLTK
+        &nbsp;Lemmas
         <a href="#explainSwitch">    [What is this?]</a>
         <div id="explainSwitch" class="modalDialog">
           <div>
             <a href="#close" title="Close" class="close">X</a>
-            <h2>Bare metal or NLTK?</h2>
-            <p>NLTK (Natural Language toolkit) is a Python library for processing human languages data.</p>
-            <p>The switch will analyse the text either using the NLTK package or its own functions
-              written from scratch. See <a href="https://mashimo.wordpress.com/2014/05/11/the-hello-world-of-text-processing/">
+            <h2>Stems or Lemmas?</h2>
+            <p>Stem is the part of the word that never changes even when morphologically inflected; 
+            a lemma is the base form of the word. </p>
+            <p>The switch will analyse the text and reduce the tokens to one of the two forms, 
+              using NLTK (Natural Language toolkit), a Python library for processing human languages data.</p>
+            <p>See <a href="https://mashimo.wordpress.com/2017/09/25/introduction-to-ntlk">
               this post </a> for details.</p>
           </div>
         </div>

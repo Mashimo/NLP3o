@@ -12,6 +12,8 @@ Created on Tue Apr 25 15:10:58 2017
 @author: Mashimo
 """
 from .inputhandler import readStopwords
+import nltk
+from nltk.stem import WordNetLemmatizer
 
 
 class TextAnalyser:
@@ -19,6 +21,7 @@ class TextAnalyser:
     def __init__(self, inputText, language = "EN"):
         self.text = inputText
         self.tokens = []
+        self.sentences = []
         self.language = language
         self.stopWords = set(readStopwords(language))
         
@@ -29,11 +32,20 @@ class TextAnalyser:
     def tokenise(self):
         """ split the text into tokens, store and returns them """
         self.tokens = self.text.split() # split by space; return a list
-        return self.tokens
+    
+    def tokeniseNLTK(self):
+        self.tokens = nltk.word_tokenize(self.text)
     
     def getTokens(self):
         """ returns the tokens (need to be previously tokenised) """
         return len(self.tokens)
+    
+    def splitSentences(self):
+        self.sentences = nltk.sent_tokenize(self.text)
+    
+    def getSentences(self):
+        """ returns the sentences (need to be previously split) """
+        return len(self.sentences)
     
     def removePunctuation(self):
         """ remove punctuation from text"""
@@ -48,13 +60,26 @@ class TextAnalyser:
         self.tokens = [token for token in self.tokens if token not in self.stopWords]
     
 
+    def lemmatiseVerbs(self):
 
-    def preprocessText(self, lowercase=True, removeStopWords=False):
+        lemmatizer = WordNetLemmatizer()
+        lemmatized = [lemmatizer.lemmatize(w,'v') for w in self.tokens]
+
+        return len(set(lemmatized))
+    
+    def stemTokens(self):
+        porter = nltk.PorterStemmer()
+        return [porter.stem(t) for t in self.tokens]
+
+    def preprocessText(self, lowercase=True, removeStopWords=False, stemInsteadLemma=False):
         """ pre-process the text:
             1. lower case 
             2. remove punctuation
             3. tokenise the text
             4. remove stop words"""
+            
+        self.splitSentences()
+        
         if lowercase:
             self.text = self.text.lower()
     
@@ -64,6 +89,12 @@ class TextAnalyser:
         
         if removeStopWords:
             self.removeStopWords()
+        
+        #if stemInsteadLemma:
+        #    self.stemTokens()
+        #else:
+        #    self.lemmatiseVerbs()
+
         
     def uniqueTokens(self):
         """ returns the unique tokens"""
@@ -77,4 +108,27 @@ class TextAnalyser:
         wordsCount = Counter(self.tokens) # count the occurrences
     
         return wordsCount.most_common()[:n]
+    
+    def getMostCommonWordsNLTK(self, n=10):
+        """ get the n most common words in the text;
+        n is the optional paramenter"""
+        # Calculate frequency distribution
+        fdist = nltk.FreqDist(self.tokens)
+
+        # Output top 20 words
+
+        return fdist.most_common(n)
+
+    def findLongest(self):
+      #Find the longest word in text1 and that word's length.
+        longest = max(self.tokens, key=len)
+        return (longest, len(longest))
+
+
+    def findSentences(self):
+    
+        sentences = nltk.sent_tokenize(self.text)
+        return len(self.tokens) / len(sentences)
+    
+    
     

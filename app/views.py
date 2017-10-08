@@ -52,10 +52,10 @@ def manageRequest():
     # DEBUG flash('read:  %s' % typeText)
 
     if request.form.get("engine"):
-        use_nltk = True
+        stemming = False
     else:
-        use_nltk = False
-    # flash('read:  %s' % use_nltk)
+        stemming = True
+    # flash('read:  %s' % stemming)
 
 
           # Which kind of user action ?
@@ -66,7 +66,8 @@ def manageRequest():
         myText = TextAnalyser(userText, language) # new object
 
         myText.preprocessText(lowercase = theInputForm.ignoreCase.data,
-                              removeStopWords = theInputForm.ignoreStopWords.data)
+                              removeStopWords = theInputForm.ignoreStopWords.data,
+                              stemInsteadLemma = stemming)
 
                # display all user text if short otherwise the first fragment of it
         if len(userText) > 99:
@@ -82,11 +83,11 @@ def manageRequest():
 
               # render the html page
         return render_template('results.html',
-                           #title='Text Analysis',
-                           title = request.form.get("engine"),
+                           title='Text Analysis',
                            inputTypeText = typeText,
                            originalText = fragment,
                            numChars = myText.length(),
+                           numSentences = myText.getSentences(),
                            numTokens = myText.getTokens(),
                            uniqueTokens = uniqueTokensText,
                            commonWords = myText.getMostCommonWords(10))
