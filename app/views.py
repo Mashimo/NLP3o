@@ -50,12 +50,20 @@ def manageRequest():
             language = request.form['lang'] # which language?
 
     # DEBUG flash('read:  %s' % typeText)
-
-    if request.form.get("engine"):
-        stemming = False
+    
+    stemmingEnabled = request.form.get("stemming")
+    stemmingType = TextAnalyser.NO_STEMMING
+    
+    if stemmingEnabled:
+        if request.form.get("engine"):
+            stemmingType = TextAnalyser.STEM
+        else:
+            stemmingType = TextAnalyser.LEMMA
     else:
-        stemming = True
-    # flash('read:  %s' % stemming)
+        stemmingType = TextAnalyser.NO_STEMMING
+
+
+    #flash('read:  %s' % stemmingEnabled)
 
 
           # Which kind of user action ?
@@ -67,7 +75,7 @@ def manageRequest():
 
         myText.preprocessText(lowercase = theInputForm.ignoreCase.data,
                               removeStopWords = theInputForm.ignoreStopWords.data,
-                              stemInsteadLemma = stemming)
+                              stemming = stemmingType)
 
                # display all user text if short otherwise the first fragment of it
         if len(userText) > 99:

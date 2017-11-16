@@ -17,6 +17,11 @@ from nltk.stem import WordNetLemmatizer
 
 
 class TextAnalyser:
+        # stemming values
+    NO_STEMMING = 0
+    STEM = 1
+    LEMMA = 2
+    
     'Text object, with analysis methods' 
     def __init__(self, inputText, language = "EN"):
         self.text = inputText
@@ -24,6 +29,8 @@ class TextAnalyser:
         self.sentences = []
         self.language = language
         self.stopWords = set(readStopwords(language))
+        
+
         
     def length(self):
         """ return length of text in chars """
@@ -63,15 +70,15 @@ class TextAnalyser:
     def lemmatiseVerbs(self):
 
         lemmatizer = WordNetLemmatizer()
-        lemmatized = [lemmatizer.lemmatize(w,'v') for w in self.tokens]
+        return [lemmatizer.lemmatize(w,'v') for w in self.tokens]
 
-        return len(set(lemmatized))
+        #return len(set(lemmatized))
     
     def stemTokens(self):
         porter = nltk.PorterStemmer()
         return [porter.stem(t) for t in self.tokens]
 
-    def preprocessText(self, lowercase=True, removeStopWords=False, stemInsteadLemma=False):
+    def preprocessText(self, lowercase=True, removeStopWords=False, stemming=NO_STEMMING):
         """ pre-process the text:
             1. lower case 
             2. remove punctuation
@@ -90,10 +97,12 @@ class TextAnalyser:
         if removeStopWords:
             self.removeStopWords()
         
-        #if stemInsteadLemma:
-        #    self.stemTokens()
-        #else:
-        #    self.lemmatiseVerbs()
+            # if stemming then do it
+        if stemming == TextAnalyser.STEM:
+            self.tokens = self.stemTokens()
+        elif stemming == TextAnalyser.LEMMA:
+            self.tokens = self.lemmatiseVerbs()
+
 
         
     def uniqueTokens(self):

@@ -61,25 +61,29 @@
             </div>
           </div> </p>
 
-        Stemming or&nbsp;
+        <p><input type="checkbox" name="stemming" unchecked>
+        Enable stemming (English only, will be slower): 
+
+        Stem or&nbsp;
         <label class="switch">
           <input type="checkbox" name="engine"  checked>
           <span class="slider"></span>
         </label>
         &nbsp;Lemmas
         <a href="#explainSwitch">    [What is this?]</a>
+        
         <div id="explainSwitch" class="modalDialog">
           <div>
             <a href="#close" title="Close" class="close">X</a>
             <h2>Stems or Lemmas?</h2>
-            <p>Stem is the part of the word that never changes even when morphologically inflected; 
+            <p>Stem is the part of the word that never changes even when morphologically inflected;
             a lemma is the base form of the word. </p>
-            <p>The switch will analyse the text and reduce the tokens to one of the two forms, 
+            <p>The switch will analyse the text and reduce the tokens to one of the two forms,
               using NLTK (Natural Language toolkit), a Python library for processing human languages data.</p>
             <p>See <a href="https://mashimo.wordpress.com/2017/09/25/introduction-to-ntlk">
               this post </a> for details.</p>
           </div>
-        </div>
+        </div></p>
     </fieldset>
 
     <fieldset>
